@@ -24,9 +24,19 @@ const CORDS = document.querySelectorAll('.toggle-scene__cord');
 const HIT = document.querySelector('.toggle-scene__hit-spot');
 const DUMMY = document.querySelector('.toggle-scene__dummy-cord');
 const DUMMY_CORD = document.querySelector('.toggle-scene__dummy-cord line');
+const PROMPT = document.querySelector('[data-story-prompt]');
+const COUNTDOWN = document.querySelector('[data-story-countdown]');
+const COUNTDOWN_PARTS = {
+  days: document.querySelector('[data-countdown-days]'),
+  hours: document.querySelector('[data-countdown-hours]'),
+  minutes: document.querySelector('[data-countdown-minutes]'),
+  seconds: document.querySelector('[data-countdown-seconds]') };
+
 const PROXY = document.createElement('div');
 const endY = DUMMY_CORD.getAttribute('y2');
 const endX = DUMMY_CORD.getAttribute('x2');
+const COUNTDOWN_TARGET = new Date(2026, 4, 31, 0, 0, 0);
+let countdownTimer;
 // set init position
 const RESET = () => {
   set(PROXY, {
@@ -46,7 +56,47 @@ const AUDIO = {
 
 const STATE = {
   ON: false,
-  ANGER: 0 };
+  ANGER: 0,
+  HAS_OPENED_ONCE: false,
+  COUNTDOWN_SHOWN: false };
+
+const formatCountdownValue = value => String(Math.max(0, value)).padStart(2, '0');
+
+const updateCountdown = () => {
+  const remaining = Math.max(0, COUNTDOWN_TARGET.getTime() - Date.now());
+  const totalSeconds = Math.floor(remaining / 1000);
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor(totalSeconds % 86400 / 3600);
+  const minutes = Math.floor(totalSeconds % 3600 / 60);
+  const seconds = totalSeconds % 60;
+
+  COUNTDOWN_PARTS.days.textContent = formatCountdownValue(days);
+  COUNTDOWN_PARTS.hours.textContent = formatCountdownValue(hours);
+  COUNTDOWN_PARTS.minutes.textContent = formatCountdownValue(minutes);
+  COUNTDOWN_PARTS.seconds.textContent = formatCountdownValue(seconds);
+
+  if (remaining === 0 && countdownTimer) {
+    window.clearInterval(countdownTimer);
+    countdownTimer = undefined;
+  }
+};
+
+const hidePrompt = () => {
+  if (PROMPT) PROMPT.classList.add('is-hidden');
+};
+
+const showCountdown = () => {
+  if (!COUNTDOWN || STATE.COUNTDOWN_SHOWN) return;
+
+  STATE.COUNTDOWN_SHOWN = true;
+  COUNTDOWN.hidden = false;
+  updateCountdown();
+  window.requestAnimationFrame(() => COUNTDOWN.classList.add('is-visible'));
+
+  if (!countdownTimer) {
+    countdownTimer = window.setInterval(updateCountdown, 1000);
+  }
+};
 
 set(PAW, {
   transformOrigin: '50% 50%',
@@ -83,7 +133,7 @@ set('.bear', {
 
 RESET();
 
-const CORD_TL = () => {
+const CORD_TL = (source = 'user') => {
   const TL = timeline({
     paused: false,
     onStart: () => {
@@ -94,12 +144,21 @@ const CORD_TL = () => {
       set([DUMMY], { display: 'none' });
       set(CORDS[0], { display: 'block' });
       AUDIO.CLICK.play();
+
+      if (source === 'user' && STATE.ON && !STATE.HAS_OPENED_ONCE) {
+        STATE.HAS_OPENED_ONCE = true;
+        hidePrompt();
+      }
     },
     onComplete: () => {
       // BEAR_TL.restart()
       set([DUMMY], { display: 'block' });
       set(CORDS[0], { display: 'none' });
       RESET();
+
+      if (source === 'bear' && !STATE.ON && STATE.HAS_OPENED_ONCE) {
+        showCountdown();
+      }
     } });
 
   for (let i = 1; i < CORDS.length; i++) {
@@ -214,7 +273,7 @@ const BEAR_TL = () => {
 
   '<').
 
-  add(() => CORD_TL(), '<');
+  add(() => CORD_TL('bear'), '<');
   return TL;
 };
 

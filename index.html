@@ -2,6 +2,7 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Impossible Lightbulb | @coding.stella</title>
   <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
 <link rel="stylesheet" href="./style.css">
@@ -118,7 +119,33 @@
   </div>
 </div>
 
-  <script src='https://unpkg.co/gsap@3/dist/gsap.min.js'></script>
+<div class="story-ui" aria-live="polite">
+  <p class="story-ui__prompt" data-story-prompt>Mở đèn lên để nhìn thấy bất ngờ</p>
+  <section class="story-ui__countdown" data-story-countdown hidden>
+    <p class="story-ui__eyebrow">Countdown đến 00h Chủ nhật 31/5/2026</p>
+    <div class="story-ui__time">
+      <div class="story-ui__unit">
+        <strong data-countdown-days>00</strong>
+        <span>ngày</span>
+      </div>
+      <div class="story-ui__unit">
+        <strong data-countdown-hours>00</strong>
+        <span>giờ</span>
+      </div>
+      <div class="story-ui__unit">
+        <strong data-countdown-minutes>00</strong>
+        <span>phút</span>
+      </div>
+      <div class="story-ui__unit">
+        <strong data-countdown-seconds>00</strong>
+        <span>giây</span>
+      </div>
+    </div>
+    <p class="story-ui__note">chờ tới ngày đó nha hehe :))</p>
+  </section>
+</div>
+
+  <script src='https://unpkg.com/gsap@3/dist/gsap.min.js'></script>
 <script src='https://assets.codepen.io/16327/MorphSVGPlugin3.min.js'></script>
 <script src='https://unpkg.com/gsap@3/dist/Draggable.min.js'></script><script  src="./script.js"></script>
 
