@@ -23,9 +23,10 @@ body {
 .story-ui {
   position: fixed;
   inset: 0;
-  display: grid;
-  justify-items: center;
-  align-content: end;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   padding: 4vmin;
   pointer-events: none;
   z-index: 5;
@@ -33,7 +34,6 @@ body {
 }
 .story-ui__prompt,
 .story-ui__countdown {
-  grid-area: 1 / 1;
   width: min(90vw, 34rem);
   margin: 0;
   padding: 1rem 1.25rem;
@@ -58,11 +58,15 @@ body {
 }
 .story-ui__countdown {
   opacity: 0;
-  transform: translateY(1rem);
+  transform: translateY(-1rem);
+  order: -1; /* đẩy lên top */
 }
 .story-ui__countdown.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+.story-ui__prompt {
+  margin-top: auto; /* đẩy xuống bottom */
 }
 .story-ui__eyebrow,
 .story-ui__note {

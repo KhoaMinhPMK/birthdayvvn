@@ -36,7 +36,15 @@ const PROXY = document.createElement('div');
 const endY = DUMMY_CORD.getAttribute('y2');
 const endX = DUMMY_CORD.getAttribute('x2');
 const COUNTDOWN_TARGET = new Date(2026, 4, 31, 0, 0, 0);
+const UNLOCK_TIME = new Date(2026, 4, 31, 0, 0, 0); // midnight 31/5 → unlock birthday page
+const isUnlocked = () => Date.now() >= UNLOCK_TIME.getTime();
 let countdownTimer;
+
+// Hiện đếm ngược ngay khi load trang
+window.addEventListener('load', () => {
+  showCountdown();
+});
+
 // set init position
 const RESET = () => {
   set(PROXY, {
@@ -156,9 +164,9 @@ const CORD_TL = (source = 'user') => {
       set(CORDS[0], { display: 'none' });
       RESET();
 
-      if (source === 'bear' && !STATE.ON && STATE.HAS_OPENED_ONCE) {
-        showCountdown();
-      }
+      // if (source === 'bear' && !STATE.ON && STATE.HAS_OPENED_ONCE) {
+      //   showCountdown();
+      // }
     } });
 
   for (let i = 1; i < CORDS.length; i++) {
@@ -277,17 +285,28 @@ const BEAR_TL = () => {
   return TL;
 };
 
-const IMPOSSIBLE_TL = () =>
-timeline({
-  onStart: () => set(HIT, { display: 'none' }),
-  onComplete: () => {
-    set(HIT, { display: 'block' });
-    if (Math.random() > 0) STATE.ANGER = STATE.ANGER + 1;
-    if (STATE.ANGER >= CONFIG.BROWS) set('.bear__brows', { display: 'block' });
-  } }).
+const IMPOSSIBLE_TL = () => {
+  const tl = timeline({
+    onStart: () => set(HIT, { display: 'none' }),
+    onComplete: () => {
+      set(HIT, { display: 'block' });
+      if (!isUnlocked()) {
+        if (Math.random() > 0) STATE.ANGER = STATE.ANGER + 1;
+        if (STATE.ANGER >= CONFIG.BROWS) set('.bear__brows', { display: 'block' });
+      }
+    }
+  });
 
-add(CORD_TL()).
-add(BEAR_TL());
+  tl.add(CORD_TL());
+
+  if (isUnlocked()) {
+    tl.add(() => delayedCall(0.8, () => { window.location.href = './birthday/'; }));
+  } else {
+    tl.add(BEAR_TL());
+  }
+
+  return tl;
+};
 
 Draggable.create(PROXY, {
   trigger: HIT,

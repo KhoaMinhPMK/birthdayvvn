@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chúc mừng sinh nhật Tú Anh 🎂</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --gold: #ffd700;
+      --gold-dark: #ffa500;
+      --crimson: #ef4444;
+      --crimson-dark: #991b1b;
+      --pink: #ec4899;
+      --pink-light: #f9a8d4;
+      --amber: #d97706;
+      --amber-light: #fbbf24;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(ellipse at 50% 60%, #12082e 0%, #0a0a1e 70%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: Georgia, 'Times New Roman', serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* ===== STARS ===== */
+    .stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle var(--d) ease-in-out infinite;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.12; transform: scale(0.7); }
+      50% { opacity: 0.9; transform: scale(1.3); }
+    }
+
+    /* ===== CONFETTI ===== */
+    .confetti-wrap { position: fixed; inset: 0; pointer-events: none; z-index: 100; overflow: hidden; }
+    .confetti-piece {
+      position: absolute;
+      top: -20px;
+      animation: confetti-fall var(--dur) ease-in var(--delay) forwards;
+    }
+    @keyframes confetti-fall {
+      to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+    }
+
+    /* ===== SCENE ===== */
+    .scene {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 36px;
+    }
+
+    /* ===== GIFT BOX ===== */
+    .gift {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: float 3.2s ease-in-out infinite;
+      transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+    .gift.is-opening { animation: none; }
+    .gift.is-gone { opacity: 0; transform: scale(0.55) translateY(15px); pointer-events: none; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    /* — Bow — */
+    .bow {
+      position: relative;
+      width: 90px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: -6px;
+      z-index: 3;
+    }
+    .bow__loop {
+      position: absolute;
+      width: 36px;
+      height: 28px;
+      background: linear-gradient(140deg, #ffe566, var(--gold-dark));
+      border-radius: 50% 50% 50% 0;
+      box-shadow: inset 0 -3px 5px rgba(0,0,0,0.15);
+    }
+    .bow__loop--left {
+      left: 4px;
+      transform: rotate(-42deg);
+      transform-origin: right center;
+    }
+    .bow__loop--right {
+      right: 4px;
+      transform: rotate(42deg) scaleX(-1);
+      transform-origin: left center;
+    }
+    .bow__knot {
+      width: 20px;
+      height: 20px;
+      background: radial-gradient(circle at 38% 35%, #ffe566, var(--gold-dark));
+      border-radius: 50%;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 0 12px rgba(255,215,0,0.85), 0 0 24px rgba(255,165,0,0.4);
+    }
+
+    /* — Lid — */
+    .gift__lid {
+      width: 216px;
+      height: 54px;
+      background: linear-gradient(150deg, #f87171, var(--crimson-dark));
+      border-radius: 8px 8px 0 0;
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+      box-shadow: 0 -2px 14px rgba(220,38,38,0.3), inset 0 1px 0 rgba(255,255,255,0.18);
+    }
+    .gift__lid::before {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 50%; transform: translateX(-50%);
+      width: 30px;
+      background: linear-gradient(180deg, #ffe566, var(--gold-dark));
+    }
+    .gift.is-opening .gift__lid {
+      animation: lid-fly 0.7s cubic-bezier(0.55, -0.3, 0.65, 1.3) forwards;
+    }
+    @keyframes lid-fly {
+      0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+      25%  { transform: translateY(-24px) rotate(-6deg); }
+      100% { transform: translateY(-320px) rotate(-18deg); opacity: 0; }
+    }
+
+    /* — Body — */
+    .gift__body {
+      width: 196px;
+      height: 158px;
+      background: linear-gradient(155deg, #f87171, var(--crimson-dark));
+      border-radius: 2px 2px 14px 14px;
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        6px 6px 0 rgba(0,0,0,0.12),
+        0 12px 34px rgba(220,38,38,0.35),
+        inset 0 1px 0 rgba(255,255,255,0.12);
+    }
+    /* Vertical ribbon */
+    .gift__body::before {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 50%; transform: translateX(-50%);
+      width: 30px;
+      background: linear-gradient(180deg, #ffe566, var(--gold-dark));
+    }
+    /* Horizontal ribbon */
+    .gift__body::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      top: 50%; transform: translateY(-50%);
+      height: 30px;
+      background: linear-gradient(90deg, #ffe566, var(--gold-dark), #ffe566);
+    }
+
+    /* ===== OPEN BUTTON ===== */
+    .open-btn {
+      padding: 15px 48px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      border: none;
+      border-radius: 100px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #1a0800;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 22px rgba(255,165,0,0.5);
+      transition: transform 0.15s, opacity 0.3s, transform 0.3s;
+      animation: pulse-glow 2.2s ease-in-out infinite;
+    }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 4px 22px rgba(255,165,0,0.5), 0 0 0 0 rgba(255,215,0,0.35); }
+      50%       { box-shadow: 0 4px 30px rgba(255,165,0,0.75), 0 0 0 14px rgba(255,215,0,0); }
+    }
+    .open-btn:hover { transform: translateY(-3px) scale(1.04); }
+    .open-btn:active { transform: translateY(0) scale(0.97); }
+    .open-btn.is-hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.8) translateY(8px);
+    }
+
+    /* ===== VIDEO OVERLAY ===== */
+    .video-overlay {
+      position: fixed;
+      inset: 0;
+      background: black;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.7s ease;
+    }
+    .video-overlay.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .video-overlay.is-hiding {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .video-overlay video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ===== CAKE SCENE ===== */
+    .cake-scene {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      opacity: 0;
+      transform: scale(0.72) translateY(28px);
+      transition: opacity 0.95s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  transform 0.95s cubic-bezier(0.34, 1.56, 0.64, 1);
+      pointer-events: none;
+    }
+    .cake-scene.is-visible {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      pointer-events: auto;
+      position: relative;
+    }
+
+    /* — Cake — */
+    .cake {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Candle */
+    .candle {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: -10px;
+      position: relative;
+      z-index: 2;
+    }
+    .flame {
+      width: 17px;
+      height: 28px;
+      background: linear-gradient(180deg, #fffde7 0%, #ffe566 28%, #ff9800 68%, #ff5722 100%);
+      border-radius: 50% 50% 30% 30% / 55% 55% 45% 45%;
+      transform-origin: bottom center;
+      animation: flicker 1.45s ease-in-out infinite;
+      box-shadow:
+        0 0 8px 3px rgba(255,152,0,0.75),
+        0 0 22px 7px rgba(255,152,0,0.4),
+        0 0 45px 12px rgba(255,100,0,0.18);
+      position: relative;
+    }
+    .flame::after {
+      content: '';
+      position: absolute;
+      width: 7px;
+      height: 13px;
+      background: rgba(255,255,255,0.65);
+      border-radius: 50%;
+      top: 4px;
+      left: 3px;
+    }
+    @keyframes flicker {
+      0%,100% { transform: scaleX(1)    scaleY(1)    rotate(-2deg);   }
+      20%      { transform: scaleX(0.87) scaleY(1.09) rotate(2.5deg);  }
+      40%      { transform: scaleX(1.09) scaleY(0.91) rotate(-1.5deg); }
+      60%      { transform: scaleX(0.93) scaleY(1.05) rotate(2deg);    }
+      80%      { transform: scaleX(1.05) scaleY(0.96) rotate(-2.5deg); }
+    }
+    .candle__wick {
+      width: 2px;
+      height: 7px;
+      background: #3d2b00;
+      border-radius: 1px;
+      margin-top: -1px;
+    }
+    .candle__body {
+      width: 16px;
+      height: 52px;
+      background: linear-gradient(135deg, #ffe4f3, #fce7f3, #fbcfe8);
+      border-radius: 3px 3px 2px 2px;
+      box-shadow: 2px 2px 0 rgba(0,0,0,0.08), inset -2px 0 6px rgba(236,72,153,0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    .candle__body::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 2px;
+      width: 8px;
+      height: 18px;
+      background: rgba(255,255,255,0.55);
+      border-radius: 0 0 50% 50%;
+    }
+
+    /* Cake layers */
+    .cake__layer {
+      position: relative;
+      overflow: visible;
+    }
+    .cake__layer--top {
+      width: 132px;
+      height: 56px;
+      background: linear-gradient(155deg, var(--pink-light), var(--pink));
+      border-radius: 5px;
+      box-shadow: 4px 4px 0 rgba(0,0,0,0.1), 0 4px 16px rgba(236,72,153,0.3);
+    }
+    .cake__layer--top::before {
+      content: '';
+      position: absolute;
+      top: -15px; left: -5px; right: -5px;
+      height: 24px;
+      background: white;
+      border-radius: 50% 50% 0 0 / 80% 80% 0 0;
+    }
+    .cake__layer--bottom {
+      width: 172px;
+      height: 68px;
+      background: linear-gradient(155deg, var(--amber-light), var(--amber));
+      border-radius: 5px;
+      box-shadow: 4px 4px 0 rgba(0,0,0,0.1), 0 4px 16px rgba(217,119,6,0.3);
+      margin-top: -2px;
+    }
+    .cake__layer--bottom::before {
+      content: '';
+      position: absolute;
+      top: -15px; left: -5px; right: -5px;
+      height: 24px;
+      background: white;
+      border-radius: 50% 50% 0 0 / 80% 80% 0 0;
+    }
+
+    /* Sprinkle dots */
+    .dots {
+      position: absolute;
+      bottom: 11px;
+      left: 0; right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 9px;
+    }
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+    }
+
+    /* Plate */
+    .cake__plate {
+      width: 214px;
+      height: 18px;
+      background: linear-gradient(180deg, #e5e7eb, #d1d5db, #9ca3af);
+      border-radius: 50%;
+      margin-top: -3px;
+      box-shadow: 0 5px 14px rgba(0,0,0,0.28), 0 2px 0 rgba(255,255,255,0.08);
+    }
+
+    /* ===== BIRTHDAY TEXT ===== */
+    .birthday-msg { text-align: center; }
+    .birthday-msg h1 {
+      font-size: clamp(2rem, 6vw, 3rem);
+      background: linear-gradient(90deg, var(--gold), #ff69b4, #c084fc, var(--gold));
+      background-size: 250% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 3s linear infinite;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .birthday-msg p {
+      color: rgba(255,255,255,0.6);
+      font-size: 1rem;
+      font-style: italic;
+      letter-spacing: 0.4px;
+    }
+    @keyframes shimmer { to { background-position: 250% center; } }
+
+    /* ===== BLOW HINT ===== */
+    .blow-hint {
+      color: rgba(255,255,255,0.55);
+      font-size: 0.9rem;
+      font-style: italic;
+      letter-spacing: 0.3px;
+      animation: hint-pulse 1.8s ease-in-out infinite;
+      margin-top: -10px;
+    }
+    @keyframes hint-pulse {
+      0%, 100% { opacity: 0.45; }
+      50%       { opacity: 1; }
+    }
+    .blow-hint.is-hidden { display: none; }
+
+    /* ===== BLOWN OUT ===== */
+    .flame {
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    .flame.is-blown {
+      opacity: 0;
+      transform: scaleY(0);
+    }
+
+    .smoke {
+      width: 3px;
+      height: 0px;
+      margin-top: -1px;
+      background: linear-gradient(180deg, transparent, rgba(200,200,200,0.6));
+      border-radius: 2px;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .smoke.is-rising {
+      animation: smoke-rise 2.2s ease-out forwards;
+    }
+    @keyframes smoke-rise {
+      0%   { height: 0px;  opacity: 0.7; transform: translateX(0)     scaleX(1);   }
+      40%  { height: 22px; opacity: 0.5; transform: translateX(3px)   scaleX(1.4); }
+      70%  { height: 36px; opacity: 0.3; transform: translateX(-3px)  scaleX(1.8); }
+      100% { height: 45px; opacity: 0;   transform: translateX(2px)   scaleX(2.2); }
+    }
+
+    .blown-msg {
+      color: rgba(255,255,255,0.8);
+      font-size: 1rem;
+      font-style: italic;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      margin-top: -10px;
+    }
+    .blown-msg.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" id="stars"></div>
+  <div class="confetti-wrap" id="confetti"></div>
+
+  <div class="scene">
+    <!-- Gift -->
+    <div class="gift" id="gift">
+      <div class="bow">
+        <div class="bow__loop bow__loop--left"></div>
+        <div class="bow__loop bow__loop--right"></div>
+        <div class="bow__knot"></div>
+      </div>
+      <div class="gift__lid" id="giftLid"></div>
+      <div class="gift__body"></div>
+    </div>
+
+    <button class="open-btn" id="openBtn">🎁 Mở quà</button>
+
+    <!-- Cake scene -->
+    <div class="cake-scene" id="cakeScene">
+      <div class="cake">
+        <div class="candle">
+          <div class="smoke" id="smoke"></div>
+          <div class="flame" id="flame"></div>
+          <div class="candle__wick"></div>
+          <div class="candle__body"></div>
+        </div>
+        <div class="cake__layer cake__layer--top">
+          <div class="dots">
+            <div class="dot" style="background:#ffd700"></div>
+            <div class="dot" style="background:#ff69b4"></div>
+            <div class="dot" style="background:#ffd700"></div>
+          </div>
+        </div>
+        <div class="cake__layer cake__layer--bottom">
+          <div class="dots">
+            <div class="dot" style="background:#ffd700"></div>
+            <div class="dot" style="background:#ec4899"></div>
+            <div class="dot" style="background:#ffd700"></div>
+            <div class="dot" style="background:#ec4899"></div>
+            <div class="dot" style="background:#ffd700"></div>
+          </div>
+        </div>
+        <div class="cake__plate"></div>
+      </div>
+
+      <div class="birthday-msg">
+        <h1>Chúc mừng sinh nhật Tú Anh! 🎂</h1>
+        <p>Chúc bà luôn vui vẻ và hạnh phúc nhé ✨</p>
+      </div>
+
+      <p class="blow-hint is-hidden" id="blowHint">Thổi nến ikkkk =))</p>
+    </div>
+  </div>
+
+  <!-- Fullscreen video overlay -->
+  <div class="video-overlay" id="videoOverlay">
+    <video id="birthdayVideo" src="./video.mp4" playsinline></video>
+  </div>
+
+  <audio id="cakeAudio" src="./sound.mp3" preload="auto"></audio>
+
+  <script>
+    // Generate stars
+    const starsEl = document.getElementById('stars');
+    for (let i = 0; i < 150; i++) {
+      const s = document.createElement('div');
+      s.className = 'star';
+      const size = Math.random() * 2.5 + 0.5;
+      s.style.width = size + 'px';
+      s.style.height = size + 'px';
+      s.style.top = Math.random() * 100 + '%';
+      s.style.left = Math.random() * 100 + '%';
+      s.style.setProperty('--d', (Math.random() * 3 + 1.5) + 's');
+      s.style.animationDelay = (Math.random() * 4) + 's';
+      starsEl.appendChild(s);
+    }
+
+    const openBtn = document.getElementById('openBtn');
+    const gift = document.getElementById('gift');
+    const cakeScene = document.getElementById('cakeScene');
+    const videoOverlay = document.getElementById('videoOverlay');
+    const video = document.getElementById('birthdayVideo');
+    const flame = document.getElementById('flame');
+    const smoke = document.getElementById('smoke');
+    const blowHint = document.getElementById('blowHint');
+
+    const VIDEO_DURATION = 20000; // 20s
+
+    // ── Microphone ──────────────────────────────────────────────
+    let micStream = null;
+    let analyser = null;
+    let micListening = false;
+
+    async function requestMic() {
+      try {
+        micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const src = ctx.createMediaStreamSource(micStream);
+        analyser = ctx.createAnalyser();
+        analyser.fftSize = 256;
+        src.connect(analyser);
+      } catch (e) {
+        console.warn('Mic unavailable:', e);
+      }
+    }
+
+    function startBlowDetection() {
+      if (!analyser || micListening) return;
+      micListening = true;
+      blowHint.classList.remove('is-hidden');
+      const data = new Uint8Array(analyser.frequencyBinCount);
+
+      function tick() {
+        if (!micListening) return;
+        analyser.getByteFrequencyData(data);
+        const vol = data.reduce((a, b) => a + b, 0) / data.length;
+        if (vol > 65) {
+          blowOutCandle();
+        } else {
+          requestAnimationFrame(tick);
+        }
+      }
+      requestAnimationFrame(tick);
+    }
+
+    function blowOutCandle() {
+      micListening = false;
+      if (micStream) micStream.getTracks().forEach(t => t.stop());
+      flame.classList.add('is-blown');
+      blowHint.classList.add('is-hidden');
+      smoke.classList.add('is-rising');
+      // Chuyển sang trang hoa sau 3s
+      setTimeout(() => {
+        window.location.href = '../flower/';
+      }, 3000);
+    }
+
+    // ── Video → Cake ─────────────────────────────────────────────
+    let videoTimer = null;
+
+    function showCake() {
+      if (videoTimer) { clearTimeout(videoTimer); videoTimer = null; }
+      videoOverlay.classList.add('is-hiding');
+      video.pause();
+      setTimeout(() => {
+        videoOverlay.classList.remove('is-visible', 'is-hiding');
+        cakeScene.classList.add('is-visible');
+        document.getElementById('cakeAudio').play().catch(() => {});
+        launchConfetti();
+        startBlowDetection();
+      }, 700);
+    }
+
+    function launchConfetti() {
+      const container = document.getElementById('confetti');
+      const colors = ['#ffd700', '#ff69b4', '#00e5ff', '#ff5722', '#76ff03', '#e040fb', '#ffffff', '#c084fc'];
+      for (let i = 0; i < 100; i++) {
+        const p = document.createElement('div');
+        p.className = 'confetti-piece';
+        const isCircle = Math.random() > 0.5;
+        p.style.left = Math.random() * 100 + '%';
+        p.style.width = (Math.random() * 5 + 6) + 'px';
+        p.style.height = isCircle ? p.style.width : (Math.random() * 6 + 10) + 'px';
+        p.style.borderRadius = isCircle ? '50%' : '2px';
+        p.style.background = colors[Math.floor(Math.random() * colors.length)];
+        p.style.setProperty('--dur', (Math.random() * 2 + 2.5) + 's');
+        p.style.setProperty('--delay', (Math.random() * 1.8) + 's');
+        p.style.transform = `rotate(${Math.random() * 360}deg)`;
+        container.appendChild(p);
+      }
+      setTimeout(() => { container.innerHTML = ''; }, 7000);
+    }
+
+    openBtn.addEventListener('click', () => {
+      openBtn.classList.add('is-hidden');
+      requestMic(); // xin mic ngay lúc bấm
+
+      // Lid flies off
+      gift.classList.add('is-opening');
+
+      // Box fades away
+      setTimeout(() => gift.classList.add('is-gone'), 660);
+
+      // Show fullscreen video
+      setTimeout(() => {
+        videoOverlay.classList.add('is-visible');
+        video.currentTime = 6;
+        video.play().catch(() => {});
+        // Fallback: show cake after 30s even if video doesn't end
+        videoTimer = setTimeout(showCake, VIDEO_DURATION);
+      }, 1150);
+    });
+  </script>
+</body>
+</html>
