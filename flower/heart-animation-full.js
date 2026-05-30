@@ -161,6 +161,15 @@ function showMessages() {
       messageText.textContent = 'tuổi mới thật nhiều niềm vui nhé!';
       messageText.style.whiteSpace = 'nowrap';
       messageText.classList.add('show');
+
+      // Show final message
+      setTimeout(() => {
+        messageText.classList.remove('show');
+        setTimeout(() => {
+          messageText.textContent = 'hết rồi hehe 🎉';
+          messageText.classList.add('show');
+        }, 1500);
+      }, 5000);
     }, 1000);
   }, 4000);
 }
@@ -436,9 +445,14 @@ function showMessages() {
       messageText.textContent = 'tuổi mới thật nhiều niềm vui nhé!';
       messageText.classList.add('show');
       
-      // Keep second message visible longer
+      // Keep second message, then show final
       setTimeout(() => {
         messageText.classList.remove('show');
+        setTimeout(() => {
+          messageText.textContent = 'hết rồi hehe 🎉';
+          messageText.style.whiteSpace = 'nowrap';
+          messageText.classList.add('show');
+        }, 1500);
       }, 5000);
     }, 2000);
   }, 4000);

@@ -64,7 +64,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 36px;
+      gap: clamp(20px, 5vmin, 40px);
     }
 
     /* ===== GIFT BOX ===== */
@@ -86,8 +86,8 @@
     /* — Bow — */
     .bow {
       position: relative;
-      width: 90px;
-      height: 50px;
+      width: clamp(70px, 18vmin, 110px);
+      height: clamp(38px, 12vmin, 60px);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -96,8 +96,8 @@
     }
     .bow__loop {
       position: absolute;
-      width: 36px;
-      height: 28px;
+      width: clamp(28px, 8vmin, 44px);
+      height: clamp(20px, 6vmin, 34px);
       background: linear-gradient(140deg, #ffe566, var(--gold-dark));
       border-radius: 50% 50% 50% 0;
       box-shadow: inset 0 -3px 5px rgba(0,0,0,0.15);
@@ -113,8 +113,8 @@
       transform-origin: left center;
     }
     .bow__knot {
-      width: 20px;
-      height: 20px;
+      width: clamp(14px, 4vmin, 22px);
+      height: clamp(14px, 4vmin, 22px);
       background: radial-gradient(circle at 38% 35%, #ffe566, var(--gold-dark));
       border-radius: 50%;
       position: relative;
@@ -124,8 +124,8 @@
 
     /* — Lid — */
     .gift__lid {
-      width: 216px;
-      height: 54px;
+      width: clamp(160px, 42vmin, 240px);
+      height: clamp(40px, 11vmin, 64px);
       background: linear-gradient(150deg, #f87171, var(--crimson-dark));
       border-radius: 8px 8px 0 0;
       position: relative;
@@ -138,7 +138,7 @@
       position: absolute;
       top: 0; bottom: 0;
       left: 50%; transform: translateX(-50%);
-      width: 30px;
+      width: clamp(22px, 6vmin, 34px);
       background: linear-gradient(180deg, #ffe566, var(--gold-dark));
     }
     .gift.is-opening .gift__lid {
@@ -152,8 +152,8 @@
 
     /* — Body — */
     .gift__body {
-      width: 196px;
-      height: 158px;
+      width: clamp(148px, 38vmin, 220px);
+      height: clamp(110px, 30vmin, 180px);
       background: linear-gradient(155deg, #f87171, var(--crimson-dark));
       border-radius: 2px 2px 14px 14px;
       position: relative;
@@ -169,7 +169,7 @@
       position: absolute;
       top: 0; bottom: 0;
       left: 50%; transform: translateX(-50%);
-      width: 30px;
+      width: clamp(22px, 6vmin, 34px);
       background: linear-gradient(180deg, #ffe566, var(--gold-dark));
     }
     /* Horizontal ribbon */
@@ -178,17 +178,17 @@
       position: absolute;
       left: 0; right: 0;
       top: 50%; transform: translateY(-50%);
-      height: 30px;
+      height: clamp(22px, 6vmin, 34px);
       background: linear-gradient(90deg, #ffe566, var(--gold-dark), #ffe566);
     }
 
     /* ===== OPEN BUTTON ===== */
     .open-btn {
-      padding: 15px 48px;
+      padding: clamp(10px, 3vmin, 18px) clamp(28px, 10vmin, 56px);
       background: linear-gradient(135deg, var(--gold), var(--gold-dark));
       border: none;
       border-radius: 100px;
-      font-size: 1.1rem;
+      font-size: clamp(0.9rem, 3vmin, 1.2rem);
       font-weight: bold;
       color: #1a0800;
       cursor: pointer;
@@ -273,8 +273,8 @@
       z-index: 2;
     }
     .flame {
-      width: 17px;
-      height: 28px;
+      width: clamp(12px, 3.5vmin, 20px);
+      height: clamp(20px, 5.5vmin, 32px);
       background: linear-gradient(180deg, #fffde7 0%, #ffe566 28%, #ff9800 68%, #ff5722 100%);
       border-radius: 50% 50% 30% 30% / 55% 55% 45% 45%;
       transform-origin: bottom center;
@@ -310,8 +310,8 @@
       margin-top: -1px;
     }
     .candle__body {
-      width: 16px;
-      height: 52px;
+      width: clamp(12px, 3vmin, 18px);
+      height: clamp(36px, 10vmin, 60px);
       background: linear-gradient(135deg, #ffe4f3, #fce7f3, #fbcfe8);
       border-radius: 3px 3px 2px 2px;
       box-shadow: 2px 2px 0 rgba(0,0,0,0.08), inset -2px 0 6px rgba(236,72,153,0.2);
@@ -334,8 +334,8 @@
       overflow: visible;
     }
     .cake__layer--top {
-      width: 132px;
-      height: 56px;
+      width: clamp(90px, 26vmin, 150px);
+      height: clamp(38px, 11vmin, 65px);
       background: linear-gradient(155deg, var(--pink-light), var(--pink));
       border-radius: 5px;
       box-shadow: 4px 4px 0 rgba(0,0,0,0.1), 0 4px 16px rgba(236,72,153,0.3);
@@ -349,8 +349,8 @@
       border-radius: 50% 50% 0 0 / 80% 80% 0 0;
     }
     .cake__layer--bottom {
-      width: 172px;
-      height: 68px;
+      width: clamp(118px, 34vmin, 195px);
+      height: clamp(46px, 13vmin, 78px);
       background: linear-gradient(155deg, var(--amber-light), var(--amber));
       border-radius: 5px;
       box-shadow: 4px 4px 0 rgba(0,0,0,0.1), 0 4px 16px rgba(217,119,6,0.3);
@@ -382,8 +382,8 @@
 
     /* Plate */
     .cake__plate {
-      width: 214px;
-      height: 18px;
+      width: clamp(148px, 42vmin, 240px);
+      height: clamp(12px, 3.5vmin, 22px);
       background: linear-gradient(180deg, #e5e7eb, #d1d5db, #9ca3af);
       border-radius: 50%;
       margin-top: -3px;
