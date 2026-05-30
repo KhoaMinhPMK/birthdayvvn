@@ -35,8 +35,8 @@ const COUNTDOWN_PARTS = {
 const PROXY = document.createElement('div');
 const endY = DUMMY_CORD.getAttribute('y2');
 const endX = DUMMY_CORD.getAttribute('x2');
-const COUNTDOWN_TARGET = new Date(2026, 4, 31, 0, 0, 0);
-const UNLOCK_TIME = new Date(2026, 4, 31, 0, 0, 0); // midnight 31/5 → unlock birthday page
+const COUNTDOWN_TARGET = new Date(2026, 4, 30, 20, 0, 0);
+const UNLOCK_TIME = new Date(2026, 4, 30, 20, 0, 0); // 20:00 30/5 → unlock birthday page
 const isUnlocked = () => Date.now() >= UNLOCK_TIME.getTime();
 let countdownTimer;
 
